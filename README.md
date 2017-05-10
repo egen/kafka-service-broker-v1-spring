@@ -34,11 +34,15 @@ The kafka broker project includes the folowing modules. See their respective REA
   cd kafka-service-broker
   mvn clean install  
   ```
+
 2. Follow the instructions in the [kafka-broker](https://github.com/cf-platform-eng/kafka-service-broker/tree/master/kafka-broker) to push and register the broker.
+
 3. Create the kafka service and make sure the _name of the service_ matches the names in the manifest.yml files _exactly_ in the producer and consumer apps. If it does not, make sure to change the name in the manifest.yml.
 
   ```bash  
   cf create-service KafkaService PubSub kafka-service   
   ```  
+
 4. Follow the instructions in the [kafka-sample-producer](https://github.com/cf-platform-eng/kafka-service-broker/tree/master/kafka-sample-producer) to push the sample producer app.
+
 5. Follow the instructions in the [kafka-sample-consumer](https://github.com/cf-platform-eng/kafka-service-broker/tree/master/kafka-sample-consumer) to push the sample consumer app.
