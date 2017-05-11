@@ -1,25 +1,25 @@
 {
   "services":[
     {
-      "id":"kafkaPivotal",
-      "name":"KafkaService",
-      "description":"Kafka Service Broker for Pivotal Cloud Foundry",
+      "id":"4a9d3e1a-360a-11e7-b547-236ccc0d6fab",
+      "name":"dingo-kafka",
+      "description":"Dingo Kafka for Pivotal Cloud Foundry",
       "bindable": true,
       "tags":[
         "kafka"
       ],
       "metadata":{
-        "displayName":"Kafka Service",
+        "displayName":"Dingo Kafka",
         "imageUrl":"https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/ICON%20-%20Black%20on%20Transparent.png",
-        "longDescription":"Kafka Service Broker for Pivotal Cloud Foundry",
-        "providerDisplayName":"Pivotal",
-        "documentationUrl":"https://docs.cloudfoundry.org/services/api.html"
+        "longDescription":"Dingo Kafka for Pivotal Cloud Foundry",
+        "providerDisplayName":"Stark & Wayne",
+        "documentationUrl":"https://www.dingotiles.com/dingo-kafka"
       },
       "plans":[
         {
-          "id":"kafkaManyToMany",
-          "name":"PubSub",
-          "description":"Many pubs, Many subs",
+          "id":"4820d23c-360a-11e7-9547-d78770a33c5b",
+          "name":"topic",
+          "description":"Share a topic",
           "metadata": {
             "cost": 0,
             "bullets": [{
