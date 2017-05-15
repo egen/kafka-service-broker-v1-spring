@@ -1,9 +1,8 @@
 ---
 applications:
-- name: kafka-broker
+- name: dingo-kafka-broker
   memory: 512M
   instances: 1
-  buildpack: java_buildpack_offline
   path: target/kafka-broker.jar
   services: [ redis-for-kafka ]
   env:
@@ -11,6 +10,3 @@ applications:
     API_VERSION: '2.10'
     ZOOKEEPER_HOST: 192.168.16.29:2181
     ZOOKEEPER_TIMEOUT: 10000
-
-
-
