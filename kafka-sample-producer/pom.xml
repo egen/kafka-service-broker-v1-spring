@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>kafka-service-broker</artifactId>
-        <groupId>io.pivotal.cf.broker</groupId>
+        <groupId>io.pivotal.ecosystem</groupId>
         <version>1.0.0</version>
     </parent>
 
@@ -19,7 +19,7 @@
         </dependency>
 
         <dependency>
-            <groupId>io.pivotal.cf.broker</groupId>
+            <groupId>io.pivotal.ecosystem</groupId>
             <artifactId>kafka-connector</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
