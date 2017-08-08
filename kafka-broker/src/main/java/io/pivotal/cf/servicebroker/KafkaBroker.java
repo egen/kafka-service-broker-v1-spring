@@ -17,6 +17,7 @@
 
 package io.pivotal.cf.servicebroker;
 
+import io.pivotal.ecosystem.servicebroker.model.LastOperation;
 import io.pivotal.ecosystem.servicebroker.model.ServiceBinding;
 import io.pivotal.ecosystem.servicebroker.model.ServiceInstance;
 import io.pivotal.ecosystem.servicebroker.service.DefaultServiceImpl;
@@ -60,8 +61,7 @@ class KafkaBroker extends DefaultServiceImpl {
      *                 as part of the create-service request, which will show up as key value pairs in instance.parameters.
      */
     @Override
-    public void createInstance(ServiceInstance instance) {
-
+    public LastOperation createInstance(ServiceInstance instance) {
         try {
             Object name = instance.getParameters().get(TOPIC_NAME_KEY);
             if (name == null) {
@@ -71,8 +71,10 @@ class KafkaBroker extends DefaultServiceImpl {
 
             log.info("creating topic: " + name.toString());
             client.createTopic(name.toString());
-        } catch (Throwable throwable) {
-            throw new KafkaBrokerException(throwable);
+            return new LastOperation(LastOperation.CREATE, LastOperation.SUCCEEDED, "created.");
+        } catch (Throwable t) {
+            log.error(t.getMessage(), t);
+            return new LastOperation(LastOperation.CREATE, LastOperation.FAILED, t.getMessage());
         }
     }
 
@@ -83,14 +85,19 @@ class KafkaBroker extends DefaultServiceImpl {
      * @param instance service instance data passed in by the cloud connector.
      */
     @Override
-    public void deleteInstance(ServiceInstance instance) {
-        try {
-            log.info("de-provisioning service instance which is a kafka topic: " + instance.getId());
+    public LastOperation deleteInstance(ServiceInstance instance) {
+      try {
+          log.info("de-provisioning service instance which is a kafka topic: " + instance.getId());
 
-            //call out to kafka to delete the topic
-            client.deleteTopic(instance.getParameters().get(TOPIC_NAME_KEY).toString());
-        } catch (Throwable throwable) {
-            throw new KafkaBrokerException(throwable);
+          //call out to kafka to delete the topic
+          String topic = instance.getParameters().get(TOPIC_NAME_KEY).toString();
+          client.deleteTopic(topic);
+          String msg = "kafka-broker: " + topic + " deleted.";
+          log.info(msg);
+          return new LastOperation(LastOperation.DELETE, LastOperation.SUCCEEDED, "deleted.");
+        } catch (Throwable t) {
+            log.error(t.getMessage(), t);
+            return new LastOperation(LastOperation.DELETE, LastOperation.FAILED, t.getMessage());
         }
     }
 
@@ -101,8 +108,9 @@ class KafkaBroker extends DefaultServiceImpl {
      * @param instance service instance data passed in by the cloud connector.
      */
     @Override
-    public void updateInstance(ServiceInstance instance) {
+    public LastOperation updateInstance(ServiceInstance instance) {
         log.info("updating broker user: " + instance.getId());
+        return new LastOperation(LastOperation.UPDATE, LastOperation.SUCCEEDED, "updated.");
     }
 
     /**
@@ -119,10 +127,11 @@ class KafkaBroker extends DefaultServiceImpl {
      *                 pairs in binding.properties
      */
     @Override
-    public void createBinding(ServiceInstance instance, ServiceBinding binding) {
+    public LastOperation createBinding(ServiceInstance instance, ServiceBinding binding) {
         // use app guid to send bind request
         //don't need to talk to kafka, just return credentials.
         log.info("binding app: " + binding.getAppGuid() + " to topic: " + instance.getParameters().get(TOPIC_NAME_KEY));
+        return new LastOperation(LastOperation.BIND, LastOperation.SUCCEEDED, "bound.");
     }
 
     /**
@@ -132,8 +141,9 @@ class KafkaBroker extends DefaultServiceImpl {
      * @param binding  binding data passed in by the cloud connector.
      */
     @Override
-    public void deleteBinding(ServiceInstance instance, ServiceBinding binding) {
+    public LastOperation deleteBinding(ServiceInstance instance, ServiceBinding binding) {
         log.info("unbinding app: " + binding.getAppGuid() + " from topic: " + instance.getParameters().get(TOPIC_NAME_KEY));
+        return new LastOperation(LastOperation.UNBIND, LastOperation.SUCCEEDED, "unbound.");
     }
 
     /**
