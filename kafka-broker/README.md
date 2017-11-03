@@ -57,6 +57,6 @@ The [simple-service-broker](https://github.com/cf-platform-eng/simple-service-br
   OK
 
   service        plans   description
-  dingo-kafka    topic   Apache Kafka 0.10
+  dingo-kafka    topic   Apache Kafka
   ...
   ```

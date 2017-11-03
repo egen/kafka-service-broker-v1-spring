@@ -3,7 +3,7 @@
     {
       "id":"4a9d3e1a-360a-11e7-b547-236ccc0d6fab",
       "name":"starkandwayne-kafka",
-      "description":"Apache Kafka 0.10",
+      "description":"Apache Kafka",
       "bindable": true,
       "tags":[
         "kafka"
@@ -11,7 +11,7 @@
       "metadata":{
         "displayName":"Stark & Wayne Kafka",
         "imageUrl":"https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/ICON%20-%20Black%20on%20Transparent.png",
-        "longDescription":"Apache Kafka 0.10",
+        "longDescription":"Apache Kafka",
         "providerDisplayName":"Stark & Wayne",
         "documentationUrl":"https://www.dingotiles.com/dingo-kafka"
       },
